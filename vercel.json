@@ -2,36 +2,20 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/backend/app.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "docs-config.yaml",
-          "docs-config.local.yaml",
-          "src/backend/**/*.twig",
-          "src/**/*.svg"
-        ]
-      }
-    },
-    {
-      "src": "src/frontend/**/*",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "build"
       }
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/build/$1"
     }
   ],
-  "scripts": {
-    "build": "yarn build-all"
+  "env": {
+    "NODE_ENV": "production"
   }
 }
