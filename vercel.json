@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/backend/app.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "docs-config.yaml",
+          "docs-config.local.yaml",
+          "src/backend/**/*.twig",
+          "src/**/*.svg"
+        ]
+      }
+    },
+    {
+      "src": "src/frontend/**/*",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "scripts": {
+    "build": "yarn build-all"
+  }
+}
